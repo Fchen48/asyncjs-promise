@@ -1,0 +1,26 @@
+{
+  "name": "asyncforeach",
+  "version": "0.1.0",
+  "description": "asyncForEach function for javascript",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Fchen48/asyncForEach.git"
+  },
+  "keywords": [
+    "forEach",
+    "js",
+    "nodejs",
+    "async",
+    "asyncForEach"
+  ],
+  "author": "Fchen48",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Fchen48/asyncForEach/issues"
+  },
+  "homepage": "https://github.com/Fchen48/asyncForEach#readme"
+}
