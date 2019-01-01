@@ -1,10 +1,34 @@
-module.exports = (array, cb) => new Promise((resolve, reject) => {
-    const next = (array, index) => {
-        if(index === array.length) return resolve();
-        cb(array[index], index, () => {
-            next(array, index + 1, cb);
-        });
+module.exports = (input, cb) => new Promise((resolve, reject) => {
+    const next = (input, index) => {
+        switch (input.constructor) {
+            case Array:
+                if(!input.length) return reject("undefined length");
+                if(input.length <= 0) return reject("input length < 1");
+                if(index === input.length) return resolve();
+                return cb(input[index], index, () => {
+                    next(input, index + 1, cb);
+                });
+
+            case Set:
+                if(!input.size) return reject("undefined length");
+                if(input.size <= 0) return reject("input length < 1");
+                if(index === input.size) return resolve();
+                return cb(Array.from(input)[index], index, () => {
+                    next(input, index + 1, cb);
+                });
+
+            case Map:
+                if(!input.size) return reject("undefined length");
+                if(input.size <= 0) return reject("input length < 1");
+                if(index === input.size) return resolve();
+                return cb(Array.from(input)[index], index, () => {
+                    next(input, index + 1, cb);
+                });
+
+            default:
+                break;
+        }
     };
 
-    next(array, 0, cb);
+    next(input, 0, cb);
 });
