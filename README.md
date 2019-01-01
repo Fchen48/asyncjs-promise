@@ -11,8 +11,9 @@ $ npm install --save asyncforeach-promise
 
 ## Usage
 
-**forEach(arrayOr)**
+**forEach(arrayOrIterableElement, callbackFunction)**
 
+Example:
 ```js
 const forEach = require("asyncforeach-promise");
 
@@ -35,7 +36,7 @@ finished
 ```
 
 This will be super usefull if you try to interact with a database or a web API. 
-A normal foreach would end up in multiple parralell executing tasks, ...
+A normal foreach would end up in multiple parallel executing tasks, ...
 
 ## License
 
