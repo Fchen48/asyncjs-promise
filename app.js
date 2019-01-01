@@ -26,7 +26,7 @@ module.exports = (input, cb) => new Promise((resolve, reject) => {
                 });
 
             default:
-                break;
+                return reject("undefined iterable type: " + input.constructor);
         }
     };
 
