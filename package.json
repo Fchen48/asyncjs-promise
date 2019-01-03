@@ -1,6 +1,6 @@
 {
   "name": "asyncforeach-promise",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "asyncForEach function with promise support",
   "main": "app.js",
   "scripts": {
@@ -11,11 +11,15 @@
     "url": "git+ssh://git@github.com/Fchen48/asyncForEach.git"
   },
   "keywords": [
-    "forEach",
-    "js",
-    "nodejs",
+    "foreach",
+    "for",
+    "each",
+    "array",
+    "map",
+    "set",
     "async",
-    "asyncForEach",
+    "asynchronous",
+    "asyncforeach",
     "promise"
   ],
   "author": "fchen",
