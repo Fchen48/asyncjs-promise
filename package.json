@@ -16,7 +16,8 @@
     "nodejs",
     "async",
     "asyncForEach",
-    "promise"
+    "promise",
+    "mongoose"
   ],
   "author": "fchen",
   "license": "MIT",
