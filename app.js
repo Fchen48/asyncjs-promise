@@ -1,6 +1,6 @@
 module.exports = (input, cb) => new Promise((resolve, reject) => {
     const next = (input, index) => {
-        switch (input.constructor.name) {
+        switch(input.constructor.name) {
             case "Array":
                 if(!input.length) return reject("undefined length");
                 if(input.length <= 0) return reject("input length < 1");
