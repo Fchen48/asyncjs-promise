@@ -1,5 +1,5 @@
 {
-  "name": "asyncforeach-promise",
+  "name": "asyncjs-promise",
   "version": "0.3.2",
   "description": "asyncForEach function with promise support",
   "main": "app.js",
@@ -8,10 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Fchen48/asyncForEach.git"
+    "url": "git+ssh://git@github.com/Fchen48/asyncjs-promise.git"
   },
   "keywords": [
+    "asyncjs-promise",
     "forEach",
+    "while",
     "js",
     "nodejs",
     "async",
@@ -19,10 +21,10 @@
     "promise",
     "mongoose"
   ],
-  "author": "fchen",
+  "author": "Fchen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Fchen48/asyncForEach/issues"
+    "url": "https://github.com/Fchen48/asyncjs-promise/issues"
   },
-  "homepage": "https://github.com/Fchen48/asyncForEach#readme"
+  "homepage": "https://github.com/Fchen48/asyncjs-promise#readme"
 }

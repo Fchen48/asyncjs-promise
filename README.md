@@ -1,33 +1,35 @@
-# asyncForEach-promise
+# asyncjs-promise
 
-simple async forEach method with promise support.
+simple async methods with promise support.
 
 ## Installation
 
-Installation is done using the `npm install` command: 
+Installation is done using the `npm install` command:
+
 ```bash
-$ npm install --save asyncforeach-promise
+$ npm install --save asyncjs-promise
 ```
 
 ## Usage
-
-**forEach(arrayOrIterableElement, callbackFunction)**
+### `.each(arrayOrIterableElement, callbackFunction)`
 
 Example:
 ```js
-const forEach = require("asyncforeach-promise");
+const async = require("asyncjs-promise");
 
 const array = [34, 24, 54];
-forEach(array, (element, index, next) => {
+async.each(array, (element, index, next) => {
     console.log(element);
-    next()
+
+    return next();
 })
 .then(() => {
     console.log("finished");
 })
 .catch(console.error);
 ```
-### Output: 
+
+Output:
 ```bash
 34
 24
@@ -35,9 +37,42 @@ forEach(array, (element, index, next) => {
 finished
 ```
 
-This will be super usefull if you try to interact with a database or a web API. 
-A normal foreach would end up in multiple parallel executing tasks, ...
+This will be super useful if you try to interact with a database or a web API.
+A normal forEach would end up in multiple parallel executing tasks, ...
 
+---
+### `.until(conditionFunction, callbackFunction)`
+Example:
+```js
+const async = require("asyncjs-promise");
+
+let counter = 0;
+async.until(() => counter >= 5), next => {
+    counter++;
+    console.log(counter);
+
+    return next();
+})
+.then(() => {
+    console.log("finished");
+})
+.catch(console.error);
+```
+
+Output:
+```bash
+1
+2
+3
+4
+5
+finished
+```
+
+This will be super useful if you try to interact with a database or a web API.
+A normal while would end up in multiple parallel executing tasks, ...
+
+---
 ## License
 
 [MIT](LICENSE)
