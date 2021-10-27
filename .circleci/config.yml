@@ -8,7 +8,6 @@ executors:
   docker:
     docker:
       - image: cimg/node:stable
-    parallelism: 4
 
 orbs:
   node: circleci/node@4.7
@@ -22,6 +21,8 @@ jobs:
         type: string
 
     executor: << parameters.os >>
+
+    parallelism: 4
 
     working_directory: ~/live
 
