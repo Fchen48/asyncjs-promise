@@ -7,7 +7,7 @@ version: 2.1
 executors: 
   docker:
     docker:
-      - image: cimg/node:stable
+      - image: cimg/node:latest
 
 orbs:
   node: circleci/node@4.7
