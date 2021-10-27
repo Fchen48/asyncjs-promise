@@ -1,0 +1,130 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2.1
+
+executors: 
+  linux:
+    docker:
+      - image: cimg/base:stable
+
+orbs:
+  node: circleci/node@4.7
+
+jobs:
+  checkout:
+    parameters:
+      os:
+        type: executor
+      node-version:
+        type: string
+
+    executor: << parameters.os >>
+
+    working_directory: ~/live
+
+    steps:
+      - checkout
+
+      - persist_to_workspace:
+          root: .
+          paths: ./*
+
+  lint:
+    parameters:
+      os:
+        type: executor
+      node-version:
+        type: string
+
+    executor: << parameters.os >>
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - run: npm run eslint-report
+
+      - store_test_results:
+          path: ./reports/eslint.xml
+
+      - store_artifacts:
+          path: ./reports/eslint.xml
+
+  test:
+    parameters:
+      os:
+        type: executor
+      node-version:
+        type: string
+
+    executor: << parameters.os >>
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - run:
+          command: npm run mocha-report
+          environment:
+            MOCHA_FILE: ./reports/mocha.xml
+          when: always
+
+      - store_test_results:
+          path: ./reports/mocha.xml
+
+      - store_artifacts:
+          path: ./reports/mocha.xml
+
+  audit:
+    parameters:
+      os:
+        type: executor
+      node-version:
+        type: string
+
+    executor: << parameters.os >>
+
+    working_directory: ~/live
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - run: npm audit
+
+workflows:
+  version: 2
+
+  all:
+    jobs:
+      - checkout:
+          matrix:
+            parameters:
+              os: linux
+              node-version: ["10", "12", "14", "16"]
+
+      - lint:
+          requires:
+            - checkout
+          matrix:
+            parameters:
+              os: linux
+              node-version: ["10", "12", "14", "16"]
+
+      - test:
+          requires:
+            - checkout
+          matrix:
+            parameters:
+              os: linux
+              node-version: ["10", "12", "14", "16"]
+
+      - audit:
+          requires:
+            - checkout
+          matrix:
+            parameters:
+              os: linux
+              node-version: ["10", "12", "14", "16"]
