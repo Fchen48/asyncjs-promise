@@ -5,7 +5,7 @@
 version: 2.1
 
 executors: 
-  linux:
+  docker:
     docker:
       - image: cimg/base:stable
 
@@ -13,7 +13,7 @@ orbs:
   node: circleci/node@4.7
 
 jobs:
-  checkout:
+  test:
     parameters:
       os:
         type: executor
@@ -31,19 +31,6 @@ jobs:
           root: .
           paths: ./*
 
-  lint:
-    parameters:
-      os:
-        type: executor
-      node-version:
-        type: string
-
-    executor: << parameters.os >>
-
-    steps:
-      - attach_workspace:
-          at: .
-
       - run: npm run eslint-report
 
       - store_test_results:
@@ -51,19 +38,6 @@ jobs:
 
       - store_artifacts:
           path: ./reports/eslint.xml
-
-  test:
-    parameters:
-      os:
-        type: executor
-      node-version:
-        type: string
-
-    executor: << parameters.os >>
-
-    steps:
-      - attach_workspace:
-          at: .
 
       - run:
           command: npm run mocha-report
@@ -77,21 +51,6 @@ jobs:
       - store_artifacts:
           path: ./reports/mocha.xml
 
-  audit:
-    parameters:
-      os:
-        type: executor
-      node-version:
-        type: string
-
-    executor: << parameters.os >>
-
-    working_directory: ~/live
-
-    steps:
-      - attach_workspace:
-          at: .
-
       - run: npm audit
 
 workflows:
@@ -99,32 +58,8 @@ workflows:
 
   all:
     jobs:
-      - checkout:
-          matrix:
-            parameters:
-              os: linux
-              node-version: ["10", "12", "14", "16"]
-
-      - lint:
-          requires:
-            - checkout
-          matrix:
-            parameters:
-              os: linux
-              node-version: ["10", "12", "14", "16"]
-
       - test:
-          requires:
-            - checkout
           matrix:
             parameters:
-              os: linux
-              node-version: ["10", "12", "14", "16"]
-
-      - audit:
-          requires:
-            - checkout
-          matrix:
-            parameters:
-              os: linux
+              os: ["docker"]
               node-version: ["10", "12", "14", "16"]
