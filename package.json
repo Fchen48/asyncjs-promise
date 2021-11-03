@@ -1,6 +1,6 @@
 {
   "name": "asyncjs-promise",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "asyncForEach function with promise support",
   "main": "app.js",
   "scripts": {
