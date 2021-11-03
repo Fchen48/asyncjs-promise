@@ -14,6 +14,9 @@ describe("asyncjs-promise", () => {
         it("check if .until is defined", () => {
             expect(async.until).a("function");
         });
+        it("check if .retry is defined", () => {
+            expect(async.retry).a("function");
+        });
     });
 
     describe(".each", () => {
@@ -71,6 +74,22 @@ describe("asyncjs-promise", () => {
                 }, 250);
             })
             .catch(console.error);
+        });
+    });
+
+    describe(".retry", () => {
+        it("retries 5 times and stop with error", () => async.retry(() => Promise.reject(), 5, 100)
+        .catch(() => true));
+
+        it("finish in the first try and stop afterwards", () => async.retry(() => Promise.resolve(), 5, 50));
+
+        it("retry 1 more and succeed afterwards", () => {
+            let counter = 0;
+
+            return async.retry(() => {
+                if(++counter <= 1) return Promise.reject();
+                return Promise.resolve();
+            }, 5, 50);
         });
     });
 });
