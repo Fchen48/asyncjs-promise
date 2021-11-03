@@ -17,7 +17,7 @@ The function itself has not changed.
 
 Regarding this, the module was also renamed to `asyncjs-promise`.
 
-*Previous:*
+Previous:
 ```js
 const forEach = require("asyncforeach-promise");
 
@@ -31,7 +31,7 @@ forEach(array, (element, index, next) => {
 })
 .catch(console.error);
 ```
-*Now:*
+Now:
 ```js
 const async = require("asyncjs-promise");
 
@@ -47,10 +47,8 @@ async.each(array, (element, index, next) => {
 .catch(console.error);
 ```
 ## Usage
-
 ### `.each(arrayOrIterableElement, callbackFunction)`
-
-Example:
+### Example:
 ```js
 const async = require("asyncjs-promise");
 
@@ -65,7 +63,6 @@ async.each(array, (element, index, next) => {
 })
 .catch(console.error);
 ```
-
 Output:
 ```bash
 34
@@ -73,9 +70,8 @@ Output:
 54
 finished
 ```
-
-This will be super useful if you try to interact with a database or a web API and try to process a set of data.
-A normal forEach would end up in multiple parallel executing tasks, ...
+*This will be super useful if you try to interact with a database or a web API and try to process a set of data.
+A normal forEach would end up in multiple parallel executing tasks, ...*
 
 ---
 ### `.until(conditionFunction, callbackFunction)`
@@ -95,7 +91,6 @@ async.until(() => counter >= 5), next => {
 })
 .catch(console.error);
 ```
-
 Output:
 ```bash
 1
@@ -105,9 +100,55 @@ Output:
 5
 finished
 ```
+*This will be super useful if you try to interact with a database or a web API and try to get an undefined length of data.
+A normal while would end up in multiple parallel executing tasks, ...*
 
-This will be super useful if you try to interact with a database or a web API and try to get an undefined length of data.
-A normal while would end up in multiple parallel executing tasks, ...
+---
+### `.retry(callbackFunction[, limit, delay, retryCallback])`
+### Examples:
+Minimal example:
+```js
+const async = require("asyncjs-promise");
+
+async.retry(() => {
+    // ... async function which returns a promise
+})
+.then(() => {
+    console.log("finished");
+})
+.catch(console.error);
+```
+*Retry the function a second time.*
+
+Advanced example:
+```js
+const async = require("asyncjs-promise");
+
+async.retry(() => {
+    // ... async function which returns a promise
+}, 5, 250, (retry, error) => {
+    console.log(retry);
+    console.error(error);
+})
+.then(() => {
+    console.log("finished");
+})
+.catch(console.error);
+```
+Output:
+```bash
+4
+*error*
+3
+*error*
+2
+*error*
+1
+*error*
+0
+*error*
+```
+*Retries the function up to `5 times`, with a delay of `250ms` between. The `retryCallback` will be triggered after each retry.*
 
 ---
 ## License
