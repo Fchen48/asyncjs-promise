@@ -74,9 +74,9 @@ module.exports = {
     /**
      * Async retry function
      * @param {Promise} cb - Async function which will execute.
-     * @param {number} [limit] - Number of retries, default = 1.
+     * @param {number} [limit] - Number of retries, default = `1`.
      * @param {number} [delay] - Delay between retries.
-     * @param {function(number)} [retryCallback] - asd
+     * @param {function(number, Error)} [retryCallback] - Callback if `cb` failed and retry in progress, returns remaining retries and error.
      * @returns {Promise} Promise
      */
 
@@ -92,7 +92,7 @@ module.exports = {
             .catch(error => {
                 if(_limit-- <= 0) return reject(error);
                 setTimeout(() => {
-                    if(typeof retryCallback === "function") retryCallback(_limit);
+                    if(typeof retryCallback === "function") retryCallback(_limit, error);
                     return next();
                 }, delay);
             });
